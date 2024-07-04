@@ -13,6 +13,7 @@ class Paths(BaseSettings):
 
     timings: Path = Path("output/run")
     timings_filename: str = "timings.csv"
+    dataset_id: str = "bigframes_tpch_10"
 
     plots: Path = Path("output/plot")
 
@@ -59,7 +60,7 @@ class Plot(BaseSettings):
 
 
 class Settings(BaseSettings):
-    scale_factor: float = 1.0
+    scale_factor: float = 10.0
 
     paths: Paths = Paths()
     plot: Plot = Plot()

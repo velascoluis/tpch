@@ -32,6 +32,7 @@ COLORS = {
     "dask": "#77D487",
     "pandas": "#2B8C5D",
     "modin": "#50B05F",
+    "bigframes": "#A9A9A9"
 }
 
 SOLUTION_NAME_MAP = {
@@ -42,6 +43,7 @@ SOLUTION_NAME_MAP = {
     "dask": "Dask",
     "modin": "Modin",
     "pyspark": "PySpark",
+    "bigframes": "bigframes"
 }
 
 Y_LIMIT_MAP = {

@@ -3,6 +3,7 @@ export SCALE_FACTOR=1.0
 
 echo run with cached IO
 make tables
+make load-tables-bq
 make run-all
 make plot
 

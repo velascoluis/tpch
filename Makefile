@@ -39,6 +39,11 @@ tables: .venv  ## Generate data tables
 	$(VENV_BIN)/python -m scripts.prepare_data
 	rm -rf data/tables/scale-$(SCALE_FACTOR)/*.tbl
 
+
+.PHONY: load-tables-bq
+load-tables-bq: .venv  ## Generate data tables
+	load_data_bq.sh ${PROJECT_ID} ${DATASET_ID} $(SCALE_FACTOR)
+
 .PHONY: run-polars
 run-polars: .venv  ## Run Polars benchmarks
 	$(VENV_BIN)/python -m queries.polars
@@ -63,8 +68,12 @@ run-dask: .venv  ## Run Dask benchmarks
 run-modin: .venv  ## Run Modin benchmarks
 	$(VENV_BIN)/python -m queries.modin
 
+.PHONY: run-bigframes
+run-bigframes: .venv  ## Run Bigframes benchmarks
+	$(VENV_BIN)/python -m queries.bigframes
+
 .PHONY: run-all
-run-all: run-polars run-duckdb run-pandas run-pyspark run-dask run-modin  ## Run all benchmarks
+run-all: run-polars run-duckdb run-pandas run-pyspark run-dask run-modin run-bigframes  ## Run all benchmarks
 
 .PHONY: plot
 plot: .venv  ## Plot results

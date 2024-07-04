@@ -25,6 +25,10 @@ def get_table_path(table_name: str) -> Path:
     ext = settings.run.io_type if settings.run.include_io else "parquet"
     return settings.dataset_base_dir / f"{table_name}.{ext}"
 
+def get_table_path_bq(table_name: str) -> str:
+    """Return the path to the given table on BQ"""
+    return f"{settings.paths.dataset_id}.{table_name}"
+
 
 def log_query_timing(
     solution: str, version: str, query_number: int, time: float
@@ -146,6 +150,16 @@ def check_query_result_pd(result: pd.DataFrame, query_number: int) -> None:
 
     expected = _get_query_answer_pd(query_number)
     assert_frame_equal(result.reset_index(drop=True), expected, check_dtype=False)
+
+
+def check_query_result_bigframes(result, query_number) -> None:
+    """Assert that the pandas result of the query is correct."""
+    from pandas.testing import assert_frame_equal
+    result_pandas = result.to_pandas()
+    expected = _get_query_answer_pd(query_number)
+    assert_frame_equal(
+        result_pandas.reset_index(drop=True), expected, check_dtype=False
+    )
 
 
 def _get_query_answer_pl(query: int) -> pl.DataFrame:
